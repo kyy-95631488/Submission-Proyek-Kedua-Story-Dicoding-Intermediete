@@ -4,7 +4,6 @@ const CACHE_NAME = 'dicoding-story-v3';
 const APP_SHELL = [
   { url: '/', revision: '1' },
   { url: '/index.html', revision: '1' },
-  { url: '/styles/styles.css', revision: '1' },
   { url: '/scripts/index.js', revision: '1' },
   { url: '/scripts/skip-link.js', revision: '1' },
   { url: '/favicon-192.png', revision: '1' },
@@ -19,7 +18,16 @@ const APP_SHELL = [
   { url: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css', revision: null },
 ];
 
-workbox.precaching.precacheAndRoute(APP_SHELL);
+if (process.env.NODE_ENV === 'production') {
+  APP_SHELL.push({ url: '/styles/styles.css', revision: '1' });
+}
+
+workbox.setConfig({ debug: false });
+
+workbox.precaching.precacheAndRoute(APP_SHELL, {
+  ignoreURLParametersMatching: [/.*/],
+  directoryIndex: 'index.html',
+});
 
 workbox.routing.registerRoute(
   ({ url }) => url.origin === 'https://story-api.dicoding.dev',
@@ -47,14 +55,21 @@ workbox.routing.registerRoute(
   })
 );
 
-self.addEventListener('push', (event) => {
-  let body;
-  if (event.data) {
-    body = event.data.text();
-  } else {
-    body = 'New story added!';
-  }
+workbox.routing.registerRoute(
+  ({ request }) => request.destination === 'style',
+  new workbox.strategies.StaleWhileRevalidate({
+    cacheName: 'styles',
+    plugins: [
+      new workbox.expiration.ExpirationPlugin({
+        maxEntries: 20,
+        maxAgeSeconds: 7 * 24 * 60 * 60,
+      }),
+    ],
+  })
+);
 
+self.addEventListener('push', (event) => {
+  let body = event.data ? event.data.text() : 'New story added!';
   const options = {
     body,
     icon: '/favicon-192.png',
