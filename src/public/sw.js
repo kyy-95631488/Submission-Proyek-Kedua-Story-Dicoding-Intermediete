@@ -9,9 +9,6 @@ const CACHE_NAME = 'dicoding-story-v3';
 const APP_SHELL = [
   { url: '/', revision: '1' },
   { url: '/index.html', revision: '1' },
-  { url: '/styles/styles.css', revision: '1' },
-  { url: '/scripts/index.js', revision: '1' },
-  { url: '/scripts/skip-link.js', revision: '1' },
   { url: '/favicon-192.png', revision: '1' },
   { url: '/favicon-512.png', revision: '1' },
   { url: '/favicon-96.png', revision: '1' },
