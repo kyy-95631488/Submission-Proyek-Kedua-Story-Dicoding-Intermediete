@@ -18,16 +18,7 @@ const APP_SHELL = [
   { url: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css', revision: null },
 ];
 
-if (process.env.NODE_ENV === 'production') {
-  APP_SHELL.push({ url: '/styles/styles.css', revision: '1' });
-}
-
-workbox.setConfig({ debug: false });
-
-workbox.precaching.precacheAndRoute(APP_SHELL, {
-  ignoreURLParametersMatching: [/.*/],
-  directoryIndex: 'index.html',
-});
+workbox.precaching.precacheAndRoute(APP_SHELL);
 
 workbox.routing.registerRoute(
   ({ url }) => url.origin === 'https://story-api.dicoding.dev',
@@ -55,21 +46,14 @@ workbox.routing.registerRoute(
   })
 );
 
-workbox.routing.registerRoute(
-  ({ request }) => request.destination === 'style',
-  new workbox.strategies.StaleWhileRevalidate({
-    cacheName: 'styles',
-    plugins: [
-      new workbox.expiration.ExpirationPlugin({
-        maxEntries: 20,
-        maxAgeSeconds: 7 * 24 * 60 * 60,
-      }),
-    ],
-  })
-);
-
 self.addEventListener('push', (event) => {
-  let body = event.data ? event.data.text() : 'New story added!';
+  let body;
+  if (event.data) {
+    body = event.data.text();
+  } else {
+    body = 'New story added!';
+  }
+
   const options = {
     body,
     icon: '/favicon-192.png',
