@@ -8,17 +8,17 @@
   "theme_color": "#6b5b9a",
   "icons": [
     {
-      "src": "./favicon-192.png",
+      "src": "/favicon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "./favicon-512.png",
+      "src": "/favicon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "./favicon-96.png",
+      "src": "/favicon-96.png",
       "sizes": "96x96",
       "type": "image/png"
     }
@@ -30,7 +30,7 @@
       "description": "Create a new story",
       "icons": [
         {
-          "src": "./favicon-96.png",
+          "src": "/favicon-96.png",
           "sizes": "96x96",
           "type": "image/png"
         }
@@ -39,13 +39,13 @@
   ],
   "screenshots": [
     {
-      "src": "/public/images/screenshot-desktop.png",
+      "src": "/images/screenshot-desktop.png",
       "sizes": "1280x621",
       "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "/public/images/screenshot-mobile.png",
+      "src": "/images/screenshot-mobile.png",
       "sizes": "750x1568",
       "type": "image/png",
       "form_factor": "narrow"

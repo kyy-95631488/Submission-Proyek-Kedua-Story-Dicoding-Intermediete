@@ -7,13 +7,13 @@ const APP_SHELL = [
   { url: '/styles/styles.css', revision: '1' },
   { url: '/scripts/index.js', revision: '1' },
   { url: '/scripts/skip-link.js', revision: '1' },
-  { url: './favicon-192.png', revision: '1' },
-  { url: './favicon-512.png', revision: '1' },
-  { url: './favicon-96.png', revision: '1' },
+  { url: '/favicon-192.png', revision: '1' },
+  { url: '/favicon-512.png', revision: '1' },
+  { url: '/favicon-96.png', revision: '1' },
   { url: '/manifest.json', revision: '1' },
-  { url: '/public/images/pribadi-kartun.png', revision: '1' },
-  { url: '/public/images/screenshot-desktop.png', revision: '1' },
-  { url: '/public/images/screenshot-mobile.png', revision: '1' },
+  { url: '/images/pribadi-kartun.png', revision: '1' },
+  { url: '/images/screenshot-desktop.png', revision: '1' },
+  { url: '/images/screenshot-mobile.png', revision: '1' },
   { url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.css', revision: null },
   { url: 'https://unpkg.com/leaflet@1.9.3/dist/leaflet.js', revision: null },
   { url: 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css', revision: null },
@@ -57,7 +57,7 @@ self.addEventListener('push', (event) => {
 
   const options = {
     body,
-    icon: './favicon-192.png',
+    icon: '/favicon-192.png',
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
