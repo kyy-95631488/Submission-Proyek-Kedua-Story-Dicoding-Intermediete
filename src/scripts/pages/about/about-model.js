@@ -3,7 +3,7 @@ export default class AboutModel {
     return {
       name: 'Hendriansyah Rizky Setiawan',
       bio: "I'm a dedicated developer with a passion for creating intuitive and dynamic user experiences. My expertise spans across multiple domains, from crafting sleek front-end interfaces to building robust Android applications.",
-      image: '../../../public/images/pribadi-kartun.png',
+      image: '/images/pribadi-kartun.png',
       skills: [
         {
           id: 'frontend',
