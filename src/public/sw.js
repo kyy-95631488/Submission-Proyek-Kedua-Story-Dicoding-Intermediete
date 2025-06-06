@@ -12,7 +12,7 @@ const APP_SHELL = [
   { url: '/assets/index-cccboano.js', revision: '1' },
   // { url: '/scripts/index.js', revision: '1' },
   { url: '/assets/index-yrpki-zw.css', revision: '1' },
-  { url: '/styles/styles.css', revision: '1' },
+  // { url: '/styles/styles.css', revision: '1' },
   { url: '/favicon-192.png', revision: '1' },
   { url: '/favicon-512.png', revision: '1' },
   { url: '/favicon-96.png', revision: '1' },
