@@ -1,0 +1,3 @@
+Map Service: OpenStreetMap
+Attribution: © OpenStreetMap contributors
+Deployment URL: https://dicoding-story-intermediete.netlify.app/
