@@ -6,6 +6,7 @@
   --primary-light: #8b7db8;
   --background: #f8f9fa;
   --text: #1e293b;
+  --success: #28a745;
   --white: #ffffff;
   --shadow: rgba(107, 91, 154, 0.2);
   --glass-bg: rgba(255, 255, 255, 0.1);
@@ -193,6 +194,22 @@ header {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   margin-bottom: 2.5rem;
+}
+
+.bookmark-story {
+  background: var(--success);
+  color: var(--white);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.bookmark-story:hover {
+  background: #218838;
 }
 
 .story-card {

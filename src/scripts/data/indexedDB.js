@@ -1,6 +1,6 @@
 const DB_NAME = 'dicoding-story-db';
 const DB_VERSION = 1;
-const STORE_NAME = 'stories';
+const STORE_NAME = 'bookmarked_stories';
 
 export function initDB() {
   return new Promise((resolve, reject) => {
@@ -69,6 +69,23 @@ export async function deleteStory(id) {
     };
 
     transaction.onerror = (event) => {
+      reject(event.target.error);
+    };
+  });
+}
+
+export async function isStoryBookmarked(id) {
+  const db = await initDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction([STORE_NAME], 'readonly');
+    const store = transaction.objectStore(STORE_NAME);
+    const request = store.get(id);
+
+    request.onsuccess = () => {
+      resolve(!!request.result);
+    };
+
+    request.onerror = (event) => {
       reject(event.target.error);
     };
   });

@@ -8,6 +8,7 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
+    manifest: true,
   },
   resolve: {
     alias: {
@@ -25,6 +26,6 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, ''),
         secure: false,
       },
-    },
+    }
   },
 });

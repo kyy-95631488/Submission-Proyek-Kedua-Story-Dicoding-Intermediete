@@ -1,7 +1,6 @@
 import { subscribeNotification, unsubscribeNotification } from '../data/api';
+import CONFIG from '../config';
 import { getAuth } from './auth';
-
-const VAPID_PUBLIC_KEY = 'BCCs2eonMI-6H2ctvFaWg-UYdDv387Vno_bzUzALpB442r2lCnsHmtrx8biyPi_E-1fSGABK_Qs_GlvPoJJqxbk';
 
 function urlBase64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -16,10 +15,15 @@ export async function subscribePush() {
   }
 
   try {
+    const permission = await Notification.requestPermission();
+    if (permission !== 'granted') {
+      return { error: true, message: 'Notification permission denied' };
+    }
+
     const registration = await navigator.serviceWorker.ready;
     const subscription = await registration.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
+      applicationServerKey: urlBase64ToUint8Array(CONFIG.VAPID_PUBLIC_KEY),
     });
 
     const auth = getAuth();
@@ -33,7 +37,8 @@ export async function subscribePush() {
       },
     };
 
-    return await subscribeNotification(subscriptionData, auth.token);
+    const response = await subscribeNotification(subscriptionData, auth.token);
+    return response;
   } catch (error) {
     return { error: true, message: error.message };
   }

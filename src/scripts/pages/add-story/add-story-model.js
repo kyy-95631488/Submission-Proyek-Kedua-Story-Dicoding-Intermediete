@@ -36,7 +36,10 @@ export default class AddStoryModel {
   }
 
   async subscribeToNotifications() {
-    return await subscribePush();
+    if (isAuthenticated()) {
+      return await subscribePush();
+    }
+    return { error: false, message: 'Guest users cannot subscribe to notifications' };
   }
 
   getAuthToken() {

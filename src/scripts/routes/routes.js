@@ -5,6 +5,7 @@ import LoginPage from '../pages/login/login-page';
 import RegisterPage from '../pages/register/register-page';
 import AboutPage from '../pages/about/about-page';
 import NotFoundPage from '../pages/not-found/not-found-page';
+import BookmarkPage from '../pages/bookmark/bookmark-page';
 
 const routes = {
   '/': new HomePage(),
@@ -13,6 +14,7 @@ const routes = {
   '/login': new LoginPage(),
   '/register': new RegisterPage(),
   '/about': new AboutPage(),
+  '/bookmarks': new BookmarkPage(),
   '/not-found': new NotFoundPage(),
 };
 

@@ -45,8 +45,9 @@ class App {
     const isLoggedIn = isAuthenticated();
     const navLinks = [
       { path: '#/', label: 'Home' },
-      { path: '#/about', label: 'About' },
+      { path: '#/bookmarks', label: 'Bookmarks' },
       { path: '#/add-story', label: 'Add Story' },
+      { path: '#/about', label: 'About' },
       ...(isLoggedIn
         ? [{ path: '#/logout', label: 'Logout' }]
         : [

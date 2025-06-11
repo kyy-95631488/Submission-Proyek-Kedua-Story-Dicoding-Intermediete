@@ -1,6 +1,7 @@
 {
   "name": "Dicoding Story",
   "short_name": "StoryApp",
+  "id": "/?source=pwa",
   "description": "A progressive web app for sharing and exploring stories",
   "start_url": "/?source=pwa",
   "display": "standalone",

@@ -1,7 +1,7 @@
 import { showFormattedDate } from '../../utils/index';
 import { saveStory, deleteStory as deleteStoryFromDB, isStoryBookmarked } from '../../data/indexedDB';
 
-export default class HomeView {
+export default class BookmarkView {
   constructor() {
     this._onNavigate = null;
   }
@@ -13,7 +13,7 @@ export default class HomeView {
   render() {
     return `
       <section class="container">
-        <h1 class="section-title">Explore Stories</h1>
+        <h1 class="section-title">Bookmarked Stories</h1>
         <div class="loading-container" id="loading" aria-live="polite" aria-busy="false">
           <div class="loader" aria-label="Loading"></div>
         </div>
@@ -43,17 +43,17 @@ export default class HomeView {
     }
   }
 
-  showLoginMessage() {
-    const storiesList = document.querySelector('#stories-list');
-    storiesList.innerHTML = `
-      <p class="login-message">Please <a href="#/login">login</a> first to view stories.</p>
-    `;
-  }
-
   async displayStories(stories) {
     const storiesList = document.querySelector('#stories-list');
     storiesList.innerHTML = '';
-    
+
+    if (stories.length === 0) {
+      storiesList.innerHTML = `
+        <p class="login-message">No bookmarked stories found. Start bookmarking stories to view them here!</p>
+      `;
+      return;
+    }
+
     for (const story of stories) {
       const isBookmarked = await isStoryBookmarked(story.id);
       storiesList.innerHTML += `
@@ -79,6 +79,8 @@ export default class HomeView {
           await deleteStoryFromDB(id);
           button.textContent = 'Bookmark';
           this.showErrorDialog('Story removed from bookmarks', false);
+          const response = await this._model.getBookmarkedStories();
+          this.displayStories(response.listStory);
         } else {
           await saveStory(story);
           button.textContent = 'Remove Bookmark';
@@ -90,11 +92,13 @@ export default class HomeView {
     document.querySelectorAll('.delete-story').forEach((button) => {
       button.addEventListener('click', async () => {
         const id = button.dataset.id;
-        if (confirm('Are you sure you want to delete this story?')) {
+        if (confirm('Are you sure you want to delete this story from bookmarks?')) {
           try {
             await deleteStoryFromDB(id);
             button.closest('.story-card').remove();
             this.showErrorDialog('Story deleted successfully', false);
+            const response = await this._model.getBookmarkedStories();
+            this.displayStories(response.listStory);
           } catch (error) {
             this.showErrorDialog(`Failed to delete story: ${error.message}`, false);
           }

@@ -1,4 +1,5 @@
 import { showFormattedDate } from '../../utils/index';
+import { saveStory, deleteStory, isStoryBookmarked } from '../../data/indexedDB';
 
 export default class DetailView {
   constructor() {
@@ -24,19 +25,34 @@ export default class DetailView {
     `;
   }
 
-  displayStory(story) {
+  async displayStory(story) {
+    const isBookmarked = await isStoryBookmarked(story.id);
     document.querySelector('#story-detail').innerHTML = `
       <div class="story-content">
         <h2 id="story-${story.id}" class="story-title" tabindex="0">${story.name}</h2>
         <div class="story-image-container">
-          <img src="${story.photoUrl || 'https://via.placeholder.com/300x169?text=No+Image'}" alt="${story.description}" class="story-image" loading="lazy" onerror="this.src='https://via.placeholder.com/300x169?text=Image+Error'"/>
+          <img src="${story.photoUrl || 'https://placehold.co/300x169/png'}" alt="${story.description}" class="story-image" loading="lazy" onerror="this.src='https://placehold.co/300x169/png'"/>
         </div>
         <div class="story-meta">
           <p class="story-date"><i class="fas fa-calendar-alt"></i> Posted on ${showFormattedDate(story.createdAt)}</p>
         </div>
         <p class="story-description">${story.description}</p>
+        <button class="bookmark-story" data-id="${story.id}">${isBookmarked ? 'Remove Bookmark' : 'Bookmark'}</button>
       </div>
     `;
+
+    document.querySelector('.bookmark-story').addEventListener('click', async () => {
+      const isBookmarked = await isStoryBookmarked(story.id);
+      if (isBookmarked) {
+        await deleteStory(story.id);
+        document.querySelector('.bookmark-story').textContent = 'Bookmark';
+        this.showErrorDialog('Story removed from bookmarks', false);
+      } else {
+        await saveStory(story);
+        document.querySelector('.bookmark-story').textContent = 'Remove Bookmark';
+        this.showErrorDialog('Story bookmarked successfully', false);
+      }
+    });
   }
 
   setupMap(story, onMapReady) {

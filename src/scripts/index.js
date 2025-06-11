@@ -45,12 +45,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Handle PWA installation prompt
   let deferredPrompt;
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    // Optionally show an install button
     const installButton = document.createElement('button');
     installButton.textContent = 'Install App';
     installButton.className = 'install-button';

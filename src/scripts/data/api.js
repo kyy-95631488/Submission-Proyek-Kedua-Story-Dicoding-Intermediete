@@ -6,7 +6,6 @@ const ENDPOINTS = {
   STORIES: `${CONFIG.BASE_URL}/stories`,
   GUEST_STORIES: `${CONFIG.BASE_URL}/stories/guest`,
   STORY_DETAIL: (id) => `${CONFIG.BASE_URL}/stories/${id}`,
-  // DELETE_STORY: (id) => `${CONFIG.BASE_URL}/stories/${id}`,
   NOTIFICATION_SUBSCRIBE: `${CONFIG.BASE_URL}/notifications/subscribe`,
 };
 
@@ -90,28 +89,6 @@ export async function getStoryDetail(id, token) {
   });
   return await response.json();
 }
-
-
-// export async function deleteStory(id, token) {
-//   try {
-//     const response = await fetch(ENDPOINTS.DELETE_STORY(id), {
-//       method: 'DELETE',
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     const data = await response.json();
-//     if (!response.ok) {
-//       throw new Error(data.message || 'Failed to delete story from server');
-//     }
-//     return data;
-//   } catch (error) {
-//     if (error.message.includes('Failed to fetch')) {
-//       throw new Error('Server deletion failed due to CORS or network issue');
-//     }
-//     throw error;
-//   }
-// }
 
 export async function subscribeNotification(subscription, token) {
   const response = await fetch(ENDPOINTS.NOTIFICATION_SUBSCRIBE, {

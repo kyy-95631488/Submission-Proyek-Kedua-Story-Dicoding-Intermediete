@@ -19,9 +19,7 @@ export default class AddStoryView {
   }
 
   setNavigationCallback(callback) {
-    // console.log('Setting navigation callback:', typeof callback, callback);
     this._onNavigate = callback || ((path) => { window.location.hash = path; });
-    // console.log('Navigation callback set to:', this._onNavigate);
   }
 
   render() {
@@ -171,18 +169,14 @@ export default class AddStoryView {
   }
 
   showDialog(message, success = false) {
-    // console.log('showDialog called with message:', message, 'success:', success);
     this.dialogMessage.textContent = message;
     this.dialog.showModal();
     this.dialogClose.focus();
 
     if (success) {
-      // console.log('Success case: attempting navigation to #/');
       setTimeout(() => {
         this.dialog.close();
-        // console.log('Navigation callback:', this._onNavigate);
         this._onNavigate('#/');
-        // console.log('Navigation to #/ triggered');
       }, 1000);
     }
   }

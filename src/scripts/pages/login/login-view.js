@@ -10,9 +10,7 @@ export default class LoginView {
   }
 
   setNavigationCallback(callback) {
-    // console.log('LoginView: Setting navigation callback:', typeof callback, callback);
     this._onNavigate = callback || ((path) => { window.location.hash = path; });
-    // console.log('LoginView: Navigation callback set to:', this._onNavigate);
   }
 
   render() {
@@ -89,7 +87,6 @@ export default class LoginView {
   }
 
   showDialog(message, success = false) {
-    // console.log('LoginView: showDialog called with message:', message, 'success:', success);
     const dialog = document.createElement('dialog');
     dialog.classList.add('alert-dialog');
     dialog.innerHTML = `
@@ -104,13 +101,10 @@ export default class LoginView {
     dialogButton.focus();
 
     if (success) {
-      // console.log('LoginView: Success case, attempting navigation to #/');
       setTimeout(() => {
-        // console.log('LoginView: Navigation callback:', this._onNavigate);
         dialog.close();
         dialog.remove();
         this._onNavigate('#/');
-        // console.log('LoginView: Navigation to #/ triggered');
       }, 1000);
     } else {
       dialogButton.addEventListener('click', () => {
