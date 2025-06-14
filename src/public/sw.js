@@ -44,7 +44,9 @@ workbox.routing.setCatchHandler(async ({ event }) => {
 });
 
 workbox.routing.registerRoute(
-  ({ url }) => url.origin === 'https://story-api.dicoding.dev' && url.pathname === '/stories',
+  ({ url }) =>
+  url.origin === 'https://story-api.dicoding.dev' &&
+  url.pathname.startsWith('/v1/stories'),
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'api-responses',
     plugins: [
@@ -62,7 +64,7 @@ workbox.routing.registerRoute(
 workbox.routing.registerRoute(
   ({ url }) =>
     url.origin === 'https://story-api.dicoding.dev' &&
-    url.pathname.startsWith('/stories/') &&
+    url.pathname.startsWith('/v1/stories/') &&
     url.pathname.split('/').length === 3,
   new workbox.strategies.NetworkFirst({
     cacheName: 'story-details',
