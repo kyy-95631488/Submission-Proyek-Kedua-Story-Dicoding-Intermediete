@@ -64,7 +64,7 @@ workbox.routing.registerRoute(
 workbox.routing.registerRoute(
   ({ url }) =>
     url.origin === 'https://story-api.dicoding.dev' &&
-    url.pathname.startsWith('/v1/stories/') &&
+    url.pathname.startsWith('/v1/stories/${id}') &&
     url.pathname.split('/').length === 3,
   new workbox.strategies.NetworkFirst({
     cacheName: 'story-details',
