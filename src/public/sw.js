@@ -10,9 +10,7 @@ const APP_SHELL = [
   { url: '/', revision: '1' },
   { url: '/index.html', revision: '1' },
   { url: '/assets/index-cccboano.js', revision: '1' },
-  // { url: '/scripts/index.js', revision: '1' },
   { url: '/assets/index-yrpki-zw.css', revision: '1' },
-  // { url: '/styles/styles.css', revision: '1' },
   { url: '/favicon-192.png', revision: '1' },
   { url: '/favicon-512.png', revision: '1' },
   { url: '/favicon-96.png', revision: '1' },
@@ -122,8 +120,6 @@ self.addEventListener('notificationclick', (event) => {
   event.notification.close();
   event.waitUntil(clients.openWindow(event.notification.data.url || '/'));
 });
-
-workbox.core.clientsClaim();
 
 self.addEventListener('message', (event) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
