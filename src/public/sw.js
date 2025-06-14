@@ -31,9 +31,7 @@ workbox.routing.registerRoute(
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'pages',
     plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
+      new workbox.cacheableResponse.CacheableResponsePlugin({ statuses: [0, 200] }),
     ],
   })
 );
@@ -47,11 +45,11 @@ workbox.routing.setCatchHandler(async ({ event }) => {
 
 workbox.routing.registerRoute(
   ({ url }) => url.origin === 'https://story-api.dicoding.dev',
-  new workbox.strategies.NetworkFirst({
+  new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'api-responses',
     plugins: [
       new workbox.expiration.ExpirationPlugin({
-        maxEntries: 50,
+        maxEntries: 100,
         maxAgeSeconds: 7 * 24 * 60 * 60,
       }),
       new workbox.cacheableResponse.CacheableResponsePlugin({
@@ -82,9 +80,7 @@ workbox.routing.registerRoute(
   new workbox.strategies.StaleWhileRevalidate({
     cacheName: 'assets',
     plugins: [
-      new workbox.cacheableResponse.CacheableResponsePlugin({
-        statuses: [0, 200],
-      }),
+      new workbox.cacheableResponse.CacheableResponsePlugin({ statuses: [0, 200] }),
     ],
   })
 );
