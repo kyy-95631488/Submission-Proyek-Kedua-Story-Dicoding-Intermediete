@@ -4,8 +4,6 @@ workbox.core.setCacheNameDetails({
   prefix: 'dicoding-story',
 });
 
-const CACHE_NAME = 'dicoding-story-v2';
-
 const APP_SHELL = [
   { url: '/', revision: '1' },
   { url: '/index.html', revision: '1' },
@@ -40,7 +38,7 @@ workbox.routing.registerRoute(
   })
 );
 
-workbox.routing.setCatchHandler(({ event }) => {
+workbox.routing.setCatchHandler(async ({ event }) => {
   if (event.request.mode === 'navigate') {
     return caches.match('/index.html');
   }
